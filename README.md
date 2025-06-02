@@ -4,7 +4,7 @@ A desktop file parser for python
 
 ### Description
 
-Parsed is a lightweight .desktop file parser I've quickly bodged up for a project of mine. It is optimised at the best of my capabilities to be light on memory and be as quick as possible.
+`parsed` is a lightweight .desktop file parser I've quickly bodged up for a project of mine. It is optimised at the best of my capabilities to be light on memory and be as quick as possible.
 
 ### Usage
 
