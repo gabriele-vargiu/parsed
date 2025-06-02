@@ -2,6 +2,24 @@
 
 class Parser:
     def __init__(self, path:str) -> None:
+        """
+    A class used to store and manipulate the action groups and key-pairs from
+    the given desktop file.
+
+    Attributes
+    ----------
+    path:str
+      the location of the desktop file to open and parse its content
+
+    Methods
+    -------
+    add_key(key, pair, locale=None, group=None)
+      adds a key to parsed desktop file
+    rem_key(key, locale=None, group=None)
+      removes a key from parsed desktop file
+    get_key(key, locale=None, group=None)
+      gets the value of a key from parsed desktop file
+        """
         self.data = {}
         with open(path, "r", encoding="UTF-8") as file:
             groupstring = ""
@@ -47,6 +65,30 @@ class Parser:
                 locale:str|None=None,
                 group:str|None=None
                 ) -> None:
+        """
+    Adds a key to the currently parsed desktop file or changes its value if key
+    already exists.
+
+    If the `locale` argument is not specified or given `None` then it'll assume
+    the unlocalised key is requested.
+
+    If the `group` argument is not specified or given `None` then it'll assume
+    the key from the "Desktop Entry" group is requested; if it is a string
+    starting with "X-" then the group from which the key is requested will be
+    left untouched from the given argument, otherwise the key from the
+    corresponding "Desktop Action" group will be requested.
+
+    Parameters
+    ----------
+    key : str, mandatory
+      the name of the key itself to be added or changed
+    pair : str | None, mandatory
+      the value of the key to be added or changed
+    locale : str | None = None, optional
+      the locale of the key to be added or changed
+    group : str | None = None, optional
+      the group to which add or change the key value
+        """
         keystring = self.get_keystring(key, locale, group)
         pair = "" if pair is None else pair
         self.data[keystring] = pair
@@ -56,6 +98,27 @@ class Parser:
                 locale:str|None=None,
                 group:str|None=None
                 ) -> None:
+        """
+    Removes a key to the currently parsed desktop file.
+
+    If the `locale` argument is not specified or given `None` then it'll assume
+    the unlocalised key is to be removed.
+
+    If the `group` argument is not specified or given `None` then it'll assume
+    the key from the "Desktop Entry" group is to be removed; if it is a string
+    starting with "X-" then the group from which the key is removed will be
+    left untouched from the given argument, otherwise the key from the
+    corresponding "Desktop Action" group will be removed.
+
+    Parameters
+    ----------
+    key : str, mandatory
+      the name of the key itself to be removed
+    locale : str | None = None, optional
+      the locale of the key to be removed
+    group : str | None = None, optional
+      the group to which remove the key
+        """
         keystring = self.get_keystring(key, locale, group)
         if keystring in self.data:
             self.data.pop(keystring)
@@ -65,6 +128,27 @@ class Parser:
                 locale:str|None=None,
                 group:str|None=None
                 ) -> str|None:
+        """
+    Gets a key from the currently parsed desktop file.
+
+    If the `locale` argument is not specified or given `None` then it'll assume
+    the unlocalised key is to be retrieved.
+
+    If the `group` argument is not specified or given `None` then it'll assume
+    the key from the "Desktop Entry" group is to be retrieved; if it is a
+    string starting with "X-" then the group from which the key is to be
+    retrieved will be left untouched from the given argument, otherwise the key
+    from the corresponding "Desktop Action" group will be retrieved.
+
+    Parameters
+    ----------
+    key : str, mandatory
+      the name of the key itself to be retrieved
+    locale : str | None = None, optional
+      the locale of the key to be retrieved
+    group : str | None = None, optional
+      the group from which retrieve the key
+        """
         keystring = self.get_keystring(key, locale, group)
         if keystring in self.data:
             return(self.data[keystring])
