@@ -26,4 +26,4 @@ action_exec_string = file.get_key("Exec", group="custom_action")
 
 ### License
 
-`parsed` was created by Gabriele Vargiu. It is licensed under the terms of the DWTFYWT public license.
+`parsed` was created by Gabriele Vargiu. It is licensed under the terms of the WTFPL license.
